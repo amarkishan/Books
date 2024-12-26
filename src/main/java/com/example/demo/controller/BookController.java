@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
 import java.util.List;
 
@@ -36,19 +35,11 @@ public class BookController
 
 
     @GetMapping("/bookid/{bookid}")
-    public ResponseEntity<?> getBookById(@PathVariable("bookid") int bookid)
-    {
-       Optional<Books> b = bookservice.getBookById(bookid);
-       if(b.isPresent())
-       {
-           return new ResponseEntity<>(b.get(),HttpStatus.OK);
+    public Books getBookById(@PathVariable("bookid") int bookid) {
+        return bookservice.getBookById(bookid);
 
-       }
-       else
-       {
-          return  new ResponseEntity<>("Book not found",HttpStatus.NOT_FOUND);
-       }
-   }
+
+    }
 
    @DeleteMapping("/bookid/{bookid}")
    public ResponseEntity<String> deleteBook(@PathVariable("bookid") int bookid)
